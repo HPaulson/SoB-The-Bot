@@ -1,0 +1,23 @@
+# Copyright SeismicCore 2020 © All rights reserved
+
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  tsc:
+    name: CI
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: install node v14.2.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.2.0
+      - name: Install Packages
+        run: yarn install
+      - name: Compile TypeScript
+        uses: iCrawl/action-tsc@v1

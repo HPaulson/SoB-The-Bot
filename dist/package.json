@@ -1,0 +1,28 @@
+{
+    "name": "sob-the-bot",
+    "version": "1.0",
+    "main": "src",
+    "repository": "https://github.com/HPaulson/SoB-The-Bot",
+    "author": "Hunter Paulson, SeismicCore",
+    "private": true,
+    "license": "Copyright Hunter Paulson, SeismicCore 2020 © All rights reserved",
+    "scripts": {
+        "ship": "./ship.sh",
+        "dev": "clear && tsc && node dist",
+        "start": "clear && pm2 start index.js && pm2 logs"
+    },
+    "dependencies": {
+        "@types/mongoose": "^5.7.36",
+        "@types/node": "^14.0.13",
+        "axios": "^0.19.2",
+        "colors": "^1.4.0",
+        "dotenv": "^8.2.0",
+        "eris": "^0.14.0",
+        "graphql-request": "^2.0.0",
+        "mongoose": "^5.9.19",
+        "node-cron": "^2.0.3",
+        "node-fetch": "^2.6.1",
+        "stacktracey": "^1.2.127",
+        "typescript": "^4.0.5"
+    }
+}
