@@ -5,7 +5,7 @@ import { request } from "graphql-request";
 const parseError = require("stacktracey");
 const color = require("colors");
 const apiURL = "https://blender-api.mlsdigital.net/graphql";
-
+const axios = require("axios");
 export = {
   getNextMatchID: async (clubID?: number) => {
     const query = `query ScoresMatchesInRange { 
@@ -98,15 +98,22 @@ export = {
           column: number;
         } = new parseError(message)[0];
 
-        console.error(
-          datePrefix,
-          // @ts-ignore - `message` will always be an error object when type 2 is passed
-          color.red.bold(`[${message.name}]`),
-          // @ts-ignore - `message` will always be an error object when type 2 is passed
-          `${message.message} at ${color.red(
-            `${parsedError.fileName}:${parsedError.line}:${parsedError.column}`
-          )}`
-        );
+        axios
+          /* @ts-ignore - `message` will always be a string when type 2 is passed */
+          .post("https://paste.seismiccore.com/documents", message.stack)
+          .then((res) => {
+            console.error(
+              datePrefix,
+              /* @ts-ignore - `message` will always be a string when type 1 is passed */
+              color.red.bold(`[${message.name}]`),
+              /* @ts-ignore - `message` will always be a string when type 1 is passed */
+              `${message.message} at ${color.red(
+                `${parsedError.fileName}:${parsedError.line}:${parsedError.column}`
+              )} - ${color.blue(
+                `https://paste.seismiccore.com/${res.data.key}`
+              )}`
+            );
+          });
 
         if (client)
           return client.executeWebhook(
